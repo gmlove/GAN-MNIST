@@ -3,9 +3,15 @@ sys.path.append('..')
 
 import numpy as np
 import os
+from tensorflow.examples.tutorials.mnist import input_data
 
 data_dir = 'data/'
 def mnist():
+    mnist = input_data.read_data_sets(data_dir, one_hot=False)
+    print(type(mnist.train.labels))
+    return mnist.train.images, mnist.test.images, mnist.train.labels, mnist.test.labels
+
+def _mnist():
     fd = open(os.path.join(data_dir,'train-images-idx3-ubyte'))
     loaded = np.fromfile(file=fd,dtype=np.uint8)
     trX = loaded[16:].reshape((60000,28*28)).astype(float)
